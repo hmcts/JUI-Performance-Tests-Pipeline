@@ -18,7 +18,7 @@ properties([
 def product = "jui"
 def component = "judge"
 
-withNightlyPipeline("nodejs", product, component) {
+withNightlyPipeline("java", product, component) {
     env.TEST_URL = 'https://jui-webapp-aat.service.core-compute-aat.internal/'
 
     enablePerformanceTest()
