@@ -15,13 +15,6 @@ class JUIBasicPerf extends Simulation {
   val JUIUsername = scala.util.Properties.envOrElse("process.env.TEST_EMAIL", Environment.JUIUsername).toLowerCase()
   val JUIPassword = scala.util.Properties.envOrElse("process.env.TEST_PASSWORD", Environment.JUIPassword)
 
-
-  /*val usernameFeeder = Array(
-    Map("username" -> "mytestuser5@gmail.com"),
-    Map("username" -> "mytestuser7@gmail.com"),
-    Map("username" -> "mytestuser9@gmail.com")
-  ).random*/
-
   val httpProtocol = http
     .baseURL(BaseUrl)
     .proxy(Proxy("proxyout.reform.hmcts.net", 8080).httpsPort(8080))
@@ -110,7 +103,6 @@ class JUIBasicPerf extends Simulation {
           .check(regex ("""href="/case/(.+?)/summary""").findAll.optional.saveAs("P_case"))
 //          .check(currentLocation.is(BaseUrl + "/"))
         )
-
 
     val juiSelectCase =
 
