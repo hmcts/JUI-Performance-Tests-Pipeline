@@ -61,8 +61,6 @@ class JUIBasicPerf extends Simulation {
     "Connection" -> "keep-alive",
     "Upgrade-Insecure-Requests" -> "1")
 
-
-
   val pauseMin = 0
   val pauseMax = 5
 
@@ -75,9 +73,7 @@ class JUIBasicPerf extends Simulation {
     .exec(juiPerf.juiDash)
     .exec(juiPerf.juiLogout)
 
-
   object juiPerf {
-
 
     val juiHome =
 
@@ -101,8 +97,6 @@ class JUIBasicPerf extends Simulation {
         .exec(http("JUI_LOGIN")
           .post(idamBaseUrl + "/login?response_type=code&client_id=${client_id}&redirect_uri=${redirect_uri}")
           .headers(headers_9)
-          //    .formParam("username", "${username}")
-          //    .formParam("password", "1234567")
           .formParam("username", JUIUsername)
           .formParam("password", JUIPassword)
           .formParam("continue", "${continue}")
@@ -114,9 +108,7 @@ class JUIBasicPerf extends Simulation {
           .formParam("scope", "")
           .formParam("state", "")
           .check(regex ("""href="/case/(.+?)/summary""").findAll.optional.saveAs("P_case"))
-          //      .check(regex ("""href="/case/(.+?)/summary""").findRandom.optional.saveAs("P_case")) // only for Gatling 3.0 and upwards
-          //    .check(regex("""href="/case/(.+?)/(.+?)/(.+?)/summary""").ofType[(String, String, String)].optional.saveAs("PA_case_details"))
-          .check(currentLocation.is(BaseUrl + "/"))
+//          .check(currentLocation.is(BaseUrl + "/"))
         )
 
 
@@ -188,9 +180,6 @@ class JUIBasicPerf extends Simulation {
         .exec(http("JUI_LOGOUT")
           .get("/logout?redirect=${redirect_uri}%3Fresponse_type%3D${response_type}%26client_id%3D${client_id}%26redirect_uri%3D${redirect_uri}")
           .headers(headers_26))
-
-
-
   }
 
     setUp(scn.inject(atOnceUsers(1)).protocols(httpProtocol))
