@@ -100,7 +100,7 @@ class JUIBasicPerf extends Simulation {
           .formParam("scope", "")
           .formParam("state", "")
           .check(regex ("""href="/case/(.+?)/summary""").findAll.optional.saveAs("P_case"))
-//          .check(currentLocation.is(BaseUrl + "/"))
+          .check(currentLocation.is(BaseUrl + "/"))
         )
 
     val juiSelectCase =
