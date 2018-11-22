@@ -5,7 +5,6 @@ import scala.concurrent.duration._
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import uk.gov.hmcts.reform.jui.performance.util.Environment
-//import io.gatling.jdbc.Predef._
 
 class JUIBasicPerf extends Simulation {
 
