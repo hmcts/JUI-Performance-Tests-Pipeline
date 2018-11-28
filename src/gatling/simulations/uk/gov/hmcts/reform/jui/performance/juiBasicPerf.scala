@@ -8,7 +8,7 @@ import uk.gov.hmcts.reform.jui.performance.util.Environment
 
 class JUIBasicPerf extends Simulation {
 
-  val idamBaseUrl = scala.util.Properties.envOrElse("IDAM_URL", Environment.IDAM_WEB_URL).toLowerCase()
+  val idamBaseUrl = scala.util.Properties.envOrElse("IDAM_WEB_URL", Environment.IDAM_WEB_URL).toLowerCase()
 
   val BaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
   val JUIUsername = scala.util.Properties.envOrElse("process.env.TEST_EMAIL", Environment.JUIUsername).toLowerCase()
