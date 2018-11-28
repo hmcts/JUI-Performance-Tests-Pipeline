@@ -7,8 +7,8 @@ properties([
                 string(name: 'URL_TO_TEST', defaultValue: 'https://jui-webapp-aat.service.core-compute-aat.internal', description: 'The URL you want to run these tests against'),
                 string(name: 'IDAM_URL', defaultValue: 'https://preprod-idamapi.reform.hmcts.net:3511', description: 'The IDAM API Url to create and delete users from'),
                 string(name: 'IDAM_WEB_URL', defaultValue: 'https://idam.preprod.ccidam.reform.hmcts.net', description: 'The IDAM Loging Url'),
-                string(name: 'process.env.TEST_EMAIL', defaultValue: 'process.env.TEST_EMAIL', description: 'JUI USERNAME'),
-                string(name: 'process.env.TEST_PASSWORD', defaultValue: 'process.env.TEST_PASSWORD', description: 'JUI PASSWORD')
+                string(name: 'process.env.TEST_EMAIL', defaultValue: 'juitestuser2@gmail.com', description: 'JUI USERNAME'),
+                string(name: 'process.env.TEST_PASSWORD', defaultValue: 'Monday01', description: 'JUI PASSWORD')
         ])
 ])
 
