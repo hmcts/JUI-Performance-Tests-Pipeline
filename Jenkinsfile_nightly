@@ -14,7 +14,7 @@ properties([
 ])
 
 
-@Library("Infrastructure@${params.LIB_VERSION}")
+library "Infrastructure@${params.LIB_VERSION}"
 
 def product = "jui"
 def component = "judge"
