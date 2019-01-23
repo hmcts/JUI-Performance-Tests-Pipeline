@@ -5,3 +5,4 @@ results/*
 target/**
 *.iml
 *.project
+.gradle
