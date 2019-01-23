@@ -11,7 +11,9 @@ properties([
 ])
 
 
+
 @Library("Infrastructure@gatling-upgrade")
+
 
 def product = "jui"
 def component = "judge"
