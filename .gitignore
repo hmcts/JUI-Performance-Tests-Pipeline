@@ -1,8 +1,6 @@
 results/*
 .DS_Store
 .idea/
-/target/**
-target/**
 *.iml
 *.project
-.gradle
+.gradle/*
