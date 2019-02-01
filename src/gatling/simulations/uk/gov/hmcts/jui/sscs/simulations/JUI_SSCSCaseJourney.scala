@@ -14,15 +14,16 @@ class JUI_SSCSCaseJourney extends Simulation {
   val httpSSCSProtocol = Environment.HttpSSCSProtocol
     .baseUrl(JUIBaseUrl)
     .proxy(Proxy("proxyout.reform.hmcts.net", 8080))
+    .disableAutoReferer
 
   val JUISSCSSCN = scenario("SCN_JUI_SSCSJourney")
     .exec(
       Logout.logout,
       Browse.landingLoginPage,
       JUILogin.submitLogin,
-      JUICases.pickRandomCase,
-      JUIQuestion.sendQuestion,
-      JUIDecision.submitDecision,
+     // JUICases.pickRandomCase,
+     // JUIQuestion.sendQuestion,
+     // JUIDecision.submitDecision,
       Logout.logout
     )
 
