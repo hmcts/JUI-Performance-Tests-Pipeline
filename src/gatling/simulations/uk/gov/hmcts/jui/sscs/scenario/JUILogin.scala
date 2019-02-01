@@ -22,11 +22,13 @@ object JUILogin {
     .formParam("response_type", "${response_type}")
     .formParam("_csrf", "${csrftoken}")
     .formParam("redirect_uri", "${redirect_uri}")
-    .formParam("client_id", "juiwebapp")
+    .formParam("client_id", "${client_id}")
     .formParam("scope", "")
     .formParam("state", "")
     .check(regex("""href="/case/SSCS/Benefit/(.*?)/casefile""").findAll.saveAs("P_cases"))
     .check(regex("""href="/case/SSCS/Benefit/(.*?)/casefile""").count.gte(1).saveAs("pickCaseCounts")))
+
+    .pause(MinThinkTime, MaxThinkTime)
 
     .exec(http("TC02_JUI_SubmitLogin_bold-a2452cb66f-v1.woff2")
       .get("/assets/fonts/bold-a2452cb66f-v1.woff2")

@@ -4,5 +4,5 @@ results/*
 target/**
 *.iml
 *.project
-.gradle/*
+/.gradle/
 build/**
