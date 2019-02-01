@@ -9,12 +9,14 @@ import uk.gov.hmcts.jui.sscs.scenario.utils._
 object Browse {
 
  val IdamJUIURL = scala.util.Properties.envOrElse("IDAM_WEB_URL", Environment.IDAM_WEB_URL).toLowerCase()
+  val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
   val feedASSCSJudgeData = csv("JUISSCSUser.csv").circular
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
 
   val landingLoginPage = exec(http("TC01_JUI_LandingLoginPage")
-    .get("/")
+    //.get("/")
+    .get(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri="+JUIBaseUrl+"/oauth2/callback")
     .check(css("input[name='_csrf']", "value").saveAs("csrftoken"))
     .check(css(".form-group>input[name='upliftToken']", "value").saveAs("upliftToken"))
     .check(css(".form-group>input[name='response_type']", "value").saveAs("response_type"))
