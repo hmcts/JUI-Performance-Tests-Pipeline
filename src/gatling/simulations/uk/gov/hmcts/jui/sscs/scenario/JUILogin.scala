@@ -14,7 +14,7 @@ object JUILogin {
   val MaxThinkTime = Environment.maxThinkTime
 
   val submitLogin = exec(http("TC02_JUI_SubmitLogin")
-    .post(IdamJUIURL + "/login?response_type=code&client_id=${client_id}&redirect_uri=${redirect_uri}")
+    .post(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri=${redirect_uri}")
     .formParam("username", "${SSCSUserName}")
     .formParam("password", "${SSCSUsrPwd}")
     .formParam("continue", "${continue}")
@@ -22,7 +22,7 @@ object JUILogin {
     .formParam("response_type", "${response_type}")
     .formParam("_csrf", "${csrftoken}")
     .formParam("redirect_uri", "${redirect_uri}")
-    .formParam("client_id", "${client_id}")
+    .formParam("client_id", "juiwebapp")
     .formParam("scope", "")
     .formParam("state", "")
     .check(regex("""href="/case/SSCS/Benefit/(.*?)/casefile""").findAll.saveAs("P_cases"))
@@ -30,10 +30,11 @@ object JUILogin {
 
     .pause(MinThinkTime, MaxThinkTime)
 
-    .exec(http("TC02_JUI_SubmitLogin_bold-a2452cb66f-v1.woff2")
+  /*  .exec(http("TC02_JUI_SubmitLogin_bold-a2452cb66f-v1.woff2")
       .get("/assets/fonts/bold-a2452cb66f-v1.woff2")
       .resources(http("TC02_JUI_SubmitLogin_light-f38ad40456-v1.woff2")
         .get("/assets/fonts/light-f38ad40456-v1.woff2")))
+        */
 
     .exec(session => {
       val PickCaseCounts = session("pickCaseCounts").as[Int]
