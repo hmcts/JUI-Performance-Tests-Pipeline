@@ -12,16 +12,20 @@ object JUILogin {
   val IdamJUIURL = scala.util.Properties.envOrElse("IDAM_WEB_URL", Environment.IDAM_WEB_URL).toLowerCase()
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
+  val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
 
   val submitLogin = exec(http("TC02_JUI_SubmitLogin")
-    .post(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri=${redirect_uri}")
+   // .post(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri=${redirect_uri}")
+    .post(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri="+JUIBaseUrl+"/oauth2/callback")
     .formParam("username", "${SSCSUserName}")
     .formParam("password", "${SSCSUsrPwd}")
-    .formParam("continue", "${continue}")
+    //.formParam("continue", "${continue}")
+    .formParam("continue", JUIBaseUrl + "/oauth2/callback")
     .formParam("upliftToken", "")
     .formParam("response_type", "${response_type}")
     .formParam("_csrf", "${csrftoken}")
-    .formParam("redirect_uri", "${redirect_uri}")
+    //.formParam("redirect_uri", "${redirect_uri}")
+    .formParam("redirect_uri", JUIBaseUrl +"/oauth2/callback")
     .formParam("client_id", "juiwebapp")
     .formParam("scope", "")
     .formParam("state", "")
