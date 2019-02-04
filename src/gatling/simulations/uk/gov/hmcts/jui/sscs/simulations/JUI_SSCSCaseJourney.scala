@@ -2,6 +2,7 @@ package uk.gov.hmcts.jui.sscs.simulations
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
+import io.gatling.core.session._
 import uk.gov.hmcts.jui.sscs.scenario.utils._
 import uk.gov.hmcts.jui.sscs.scenario._
 import scala.concurrent.duration._
@@ -16,6 +17,8 @@ class JUI_SSCSCaseJourney extends Simulation {
     .proxy(Proxy("proxyout.reform.hmcts.net", 8080))
     .disableAutoReferer
 
+
+
   val JUISSCSSCN = scenario("SCN_JUI_SSCSJourney")
     .exec(
       Logout.logout,
@@ -27,7 +30,10 @@ class JUI_SSCSCaseJourney extends Simulation {
       Logout.logout
     )
 
-  setUp(JUISSCSSCN.inject(atOnceUsers(1))).protocols(httpSSCSProtocol)
+   // setUp(JUISSCSSCN.inject(atOnceUsers(1))).protocols(httpSSCSProtocol)
+  setUp(JUISSCSSCN.inject(atOnceUsers(1)))
+    .protocols(httpSSCSProtocol)
+
 
 
 
