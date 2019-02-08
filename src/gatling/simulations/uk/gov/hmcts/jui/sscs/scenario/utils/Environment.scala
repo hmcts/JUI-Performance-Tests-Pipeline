@@ -10,8 +10,8 @@ object Environment {
   val URL_TO_TEST = "https://jui-webapp-aat.service.core-compute-aat.internal"
   val IDAM_WEB_URL = "https://idam.preprod.ccidam.reform.hmcts.net"
 
-  val minThinkTime = 10
-  val maxThinkTime = 15
+  val minThinkTime = 2
+  val maxThinkTime = 5
 
 
   val constantthinkTime = 4
