@@ -15,8 +15,8 @@ object JUILogin {
   val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
 
   val submitLogin = exec(http("TC02_JUI_SubmitLogin")
-   // .post(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri=${redirect_uri}")
-    .post(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri="+JUIBaseUrl+"/oauth2/callback")
+    .post(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri=${redirect_uri}")
+    //.post(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri="+JUIBaseUrl+"/oauth2/callback")
     .formParam("username", "${SSCSUserName}")
     .formParam("password", "${SSCSUsrPwd}")
     //.formParam("continue", "${continue}")
