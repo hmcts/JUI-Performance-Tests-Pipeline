@@ -6,3 +6,6 @@ target/**
 *.project
 /.gradle/
 build/**
+/.gradle/
+build/**
+
