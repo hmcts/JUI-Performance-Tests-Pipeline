@@ -30,11 +30,6 @@ class JUI_SSCSCaseJourney extends Simulation {
       Logout.logout
     )
 
-   // setUp(JUISSCSSCN.inject(atOnceUsers(1))).protocols(httpSSCSProtocol)
-  setUp(JUISSCSSCN.inject(atOnceUsers(1)))
-    .protocols(httpSSCSProtocol)
-
-
-
+    setUp(JUISSCSSCN.inject(atOnceUsers(1))).protocols(httpSSCSProtocol)
 
 }
