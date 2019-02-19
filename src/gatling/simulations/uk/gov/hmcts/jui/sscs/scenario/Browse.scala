@@ -15,13 +15,13 @@ object Browse {
   val MaxThinkTime = Environment.maxThinkTime
 
   val landingLoginPage = exec(http("TC01_JUI_LandingLoginPage")
-    .get("/"))
+   /* .get("/"))
     .pause(MinThinkTime, MaxThinkTime)
 
     .exec(http("TC01_JUI_LandingLoginPage_redirect")
       .get(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri=" + JUIBaseUrl + "/oauth2/callback")
-      .check(css("input[name='_csrf']", "value").saveAs("csrftoken")))
-    /*
+      .check(css("input[name='_csrf']", "value").saveAs("csrftoken")))*/
+
     .get(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri="+JUIBaseUrl+"/oauth2/callback")
     .check(css("input[name='_csrf']", "value").saveAs("csrftoken"))
     .check(css(".form-group>input[name='upliftToken']", "value").saveAs("upliftToken"))
@@ -46,7 +46,7 @@ object Browse {
         http("TC01_JUI_LandingLoginPage_gov.uk_logotype_crown.png")
           .get(IdamJUIURL + "/public/stylesheets/images/gov.uk_logotype_crown.png?0.23.0"),
         http("TC01_JUI_LandingLoginPage_govuk-crest-2x.png")
-          .get(IdamJUIURL + "/public/stylesheets/images/govuk-crest-2x.png?0.23.0")))*/
+          .get(IdamJUIURL + "/public/stylesheets/images/govuk-crest-2x.png?0.23.0")))
     .feed(feedASSCSJudgeData)
     .pause(MinThinkTime, MaxThinkTime)
 }
