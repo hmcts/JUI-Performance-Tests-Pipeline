@@ -12,7 +12,7 @@ properties([
 
 
 
-@Library("Infrastructure@gatling-upgrade")
+@Library("Infrastructure")
 
 
 def product = "jui"
