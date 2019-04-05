@@ -21,8 +21,8 @@ object JUILogin {
   val submitLogin = exec(http("TX02_JUI_SubmitLogin_01")
     .post(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri=" + JUIBaseUrl + "/oauth2/callback")//.disableFollowRedirect
     .headers(headers_0)
-    .formParam("username", "juitestjudgesscs@mailnesia.com")
-    .formParam("password", "Monday01")
+    .formParam("username", "${SSCSUserName}")
+    .formParam("password", "${SSCSUsrPwd}")
     .formParam("save", "Sign in")
     .formParam("selfRegistrationEnabled", "false")
     .formParam("_csrf", "${csrftoken}"))
