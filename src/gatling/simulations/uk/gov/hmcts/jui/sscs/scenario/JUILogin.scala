@@ -13,28 +13,32 @@ object JUILogin {
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
   val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
+  val commonSSCSHeader = Environment.commonSSCSHeader
+  val headers_0 = Environment.headers_0
+  val headers_1 = Environment.headers_1
+  val headers_3 = Environment.headers_3
 
-  val submitLogin = 	exec(http("TC02_JUI_SubmitLogin")
-    .post(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri=" + JUIBaseUrl + "/oauth2/callback").disableFollowRedirect
-    .formParam("username", "${SSCSUserName}")
-    .formParam("password", "${SSCSUsrPwd}")
-    .formParam("continue", JUIBaseUrl + "/oauth2/callback")
-    .formParam("upliftToken", "")
-    .formParam("response_type", "code")
-    .formParam("_csrf", "${csrftoken}")
-    .formParam("redirect_uri", JUIBaseUrl + "/oauth2/callback")
-    .formParam("client_id", "juiwebapp")
-    .formParam("scope", "")
-    .formParam("state", "")
-    .check(headerRegex("Location", "(?<=code=)(.*)").saveAs("authCode"))
-    .check(status.in(200,302)))
+  val submitLogin = exec(http("TX02_JUI_SubmitLogin_01")
+    .post(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri=" + JUIBaseUrl + "/oauth2/callback")//.disableFollowRedirect
+    .headers(headers_0)
+    .formParam("username", "juitestjudgesscs@mailnesia.com")
+    .formParam("password", "Monday01")
+    .formParam("save", "Sign in")
+    .formParam("selfRegistrationEnabled", "false")
+    .formParam("_csrf", "${csrftoken}"))
+  
     .pause(MinThinkTime, MaxThinkTime)
 
-    .exec((http("TC02_JUI_SubmitLogin_authCode")
+    /*.exec((http("TC02_JUI_SubmitLogin_authCode")
       .get("/oauth2/callback?code=${authCode}")
       .check(regex("""href="/case/SSCS/Benefit/(.*?)/casefile""").findAll.saveAs("P_cases"))
-      .check(regex("""href="/case/SSCS/Benefit/(.*?)/casefile""").count.gte(1).saveAs("pickCaseCounts"))))
+      .check(regex("""href="/case/SSCS/Benefit/(.*?)/casefile""").count.gte(1).saveAs("pickCaseCounts"))))*/
 
+    .exec(http("TX02_JUI_SubmitLogin_GetCode")
+      .get(JUIBaseUrl + "/api/cases")
+      .headers(headers_3)
+      .check(regex("""case_id":(.*?),""").findAll.saveAs("P_cases"))
+      .check(regex("""case_id":(.*?),""").count.gte(1).saveAs("pickCaseCounts")))
 
     .pause(MinThinkTime, MaxThinkTime)
 
