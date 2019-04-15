@@ -8,10 +8,10 @@ object JUICases {
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
 
-  val pickRandomCase = exec(http("TC03_JUI_SelectCase")
+  val pickRandomCase = exec(http("TX03_JUI_SelectCase")
     .get("/api/case/SSCS/Benefit/${P_case}"))
 
-    .exec(http("TC03_JUI_SelectCase_icon-wysiwyg-ordered-list.svg")
+    /*.exec(http("TX03_JUI_SelectCase_icon-wysiwyg-ordered-list.svg")
       .get("/public/images/icon-wysiwyg-ordered-list.svg")
       .resources(http("TC03_JUI_SelectCase_icon-wysiwyg-unordered-list.svg")
         .get("/public/images/icon-wysiwyg-unordered-list.svg"),
@@ -20,18 +20,18 @@ object JUICases {
         http("TC03_JUI_SelectCase_icon-wysiwyg-bold.svg")
           .get("/public/images/icon-wysiwyg-bold.svg"),
         http("TC03_JUI_SelectCase_icon-wysiwyg-italic.svg")
-          .get("/public/images/icon-wysiwyg-italic.svg")))
+          .get("/public/images/icon-wysiwyg-italic.svg")))*/
     .pause(MinThinkTime, MaxThinkTime)
 
-    .exec(http("TC04_JUI_SelectCase_clickPartiesTab")
+    .exec(http("TX04_JUI_SelectCase_clickPartiesTab")
       .get("/api/case/SSCS/Benefit/${P_case}/parties"))
     .pause(MinThinkTime, MaxThinkTime)
 
-    .exec(http("TC05_JUI_SelectCase_clickCasefileTab")
+    .exec(http("TX05_JUI_SelectCase_clickCasefileTab")
       .get("/api/case/SSCS/Benefit/${P_case}/casefile"))
     .pause(MinThinkTime, MaxThinkTime)
 
-    .exec(http("TC06_JUI_SelectCase_clickTimelineTab")
+    .exec(http("TX06_JUI_SelectCase_clickTimelineTab")
       .get("/api/case/SSCS/Benefit/${P_case}/timeline"))
     .pause(MinThinkTime, MaxThinkTime)
 }
