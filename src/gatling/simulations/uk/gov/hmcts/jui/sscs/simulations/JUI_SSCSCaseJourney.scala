@@ -9,27 +9,26 @@ import scala.concurrent.duration._
 
 class JUI_SSCSCaseJourney extends Simulation {
 
- val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
-
+  val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
 
   val httpSSCSProtocol = Environment.HttpSSCSProtocol
     .baseUrl(JUIBaseUrl)
-    .proxy(Proxy("proxyout.reform.hmcts.net", 8080))
-   // .disableAutoReferer
-
-
+    .proxy(Proxy("proxyout.reform.hmcts.net", 8080).httpsPort(8080))
+    .maxRedirects(10)
+  // .disableAutoReferer
 
   val JUISSCSSCN = scenario("SCN_JUI_SSCSJourney")
     .exec(
       Logout.logout,
       Browse.landingLoginPage,
       JUILogin.submitLogin,
-     // JUICases.pickRandomCase,
-     // JUIQuestion.sendQuestion,
-     // JUIDecision.submitDecision,
+      JUICases.pickRandomCase,
+      JUIDocument.openDocument,
+      JUIQuestion.sendQuestion,
+      JUIDecision.submitDecision,
       Logout.logout
     )
 
-    setUp(JUISSCSSCN.inject(atOnceUsers(1))).protocols(httpSSCSProtocol)
+  setUp(JUISSCSSCN.inject(atOnceUsers(1))).protocols(httpSSCSProtocol)
 
 }
