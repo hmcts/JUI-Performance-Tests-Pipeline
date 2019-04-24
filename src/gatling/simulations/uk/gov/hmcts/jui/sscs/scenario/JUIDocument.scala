@@ -10,13 +10,12 @@ object JUIDocument {
   val headers_3 = Environment.headers_3
   val headers_5 = Environment.headers_5
 
-  val openDocument = exec(http("TX05_JUI_OpenDocument_01")
+  val openDocument = exec(http("JUI_070_005_OpenDocument")
     .get("/api/documents/${documentID}")
       .headers(headers_3))
-      .pause(MinThinkTime, MaxThinkTime)
 
-    .exec(http("TX05_JUI_OpenDocument_03")
+    .exec(http("JUI_070_010_OpenDocument")
       .get("/api/documents/${documentID}/binary")
       .headers(headers_5))
-
+    .pause(MinThinkTime, MaxThinkTime)
 }

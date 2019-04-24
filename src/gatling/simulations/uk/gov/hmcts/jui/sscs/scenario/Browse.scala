@@ -5,19 +5,18 @@ import io.gatling.http.Predef._
 import scala.concurrent.duration
 import uk.gov.hmcts.jui.sscs.scenario.utils._
 
-
 object Browse {
 
  val IdamJUIURL = scala.util.Properties.envOrElse("IDAM_WEB_URL", Environment.IDAM_WEB_URL).toLowerCase()
-  val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
-  val feedASSCSJudgeData = csv("JUISSCSUser.csv").circular
-  val MinThinkTime = Environment.minThinkTime
-  val MaxThinkTime = Environment.maxThinkTime
+ val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
+ //val feedASSCSJudgeData = csv("JUISSCSUser.csv").circular
+ val MinThinkTime = Environment.minThinkTime
+ val MaxThinkTime = Environment.maxThinkTime
 
-   val landingLoginPage = exec(http("TX01_JUI_LandingLoginPage")
+ val landingLoginPage = exec(http("JUI_010_005_HomePage")
    .get("/"))
 
-   .exec(http("TX01_JUI_LandingLoginPage_02")
+   .exec(http("JUI_010_010_HomePage")
      .get(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri="+JUIBaseUrl+"/oauth2/callback")
      .check(css("input[name='_csrf']", "value").saveAs("csrftoken"))
     /*.check(css(".form-group>input[name='upliftToken']", "value").saveAs("upliftToken"))
@@ -27,7 +26,8 @@ object Browse {
     .check(css(".form-group>input[name='scope']", "value").saveAs("scope"))
     .check(css(".form-group>input[name='state']", "value").saveAs("state"))
     .check(css(".form-group>input[name='continue']", "value").saveAs("continue"))*/)
- 
-    .feed(feedASSCSJudgeData)
-    .pause(MinThinkTime, MaxThinkTime)
+
+   //.feed(feedASSCSJudgeData)
+
+   .pause(MinThinkTime, MaxThinkTime)
 }
