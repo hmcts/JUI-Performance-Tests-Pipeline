@@ -8,10 +8,13 @@ object JUICases {
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
 
-  val pickRandomCase = exec(http("TC03_JUI_SelectCase")
-    .get("/api/case/SSCS/Benefit/${P_case}"))
+  val pickRandomCase = exec(http("JUI_030_SelectCase")
+    .get("/api/case/SSCS/Benefit/${New_Case_Id}")
+    //.check(css("ttp://dm-store-aat.service.core-compute-aat.internal:443/documents/(.*)", "value").saveAs("documentId"))
+    .check(regex("documents/(.*?)\",\"document_filename").saveAs("documentID"))
+  )
 
-    .exec(http("TC03_JUI_SelectCase_icon-wysiwyg-ordered-list.svg")
+    /*.exec(http("TX03_JUI_SelectCase_icon-wysiwyg-ordered-list.svg")
       .get("/public/images/icon-wysiwyg-ordered-list.svg")
       .resources(http("TC03_JUI_SelectCase_icon-wysiwyg-unordered-list.svg")
         .get("/public/images/icon-wysiwyg-unordered-list.svg"),
@@ -20,18 +23,18 @@ object JUICases {
         http("TC03_JUI_SelectCase_icon-wysiwyg-bold.svg")
           .get("/public/images/icon-wysiwyg-bold.svg"),
         http("TC03_JUI_SelectCase_icon-wysiwyg-italic.svg")
-          .get("/public/images/icon-wysiwyg-italic.svg")))
+          .get("/public/images/icon-wysiwyg-italic.svg")))*/
     .pause(MinThinkTime, MaxThinkTime)
 
-    .exec(http("TC04_JUI_SelectCase_clickPartiesTab")
-      .get("/api/case/SSCS/Benefit/${P_case}/parties"))
+    .exec(http("JUI_040_SelectPartiesTab")
+      .get("/api/case/SSCS/Benefit/${New_Case_Id}/parties"))
     .pause(MinThinkTime, MaxThinkTime)
 
-    .exec(http("TC05_JUI_SelectCase_clickCasefileTab")
-      .get("/api/case/SSCS/Benefit/${P_case}/casefile"))
+    .exec(http("JUI_050_SelectCaseFileTab")
+      .get("/api/case/SSCS/Benefit/${New_Case_Id}/casefile"))
     .pause(MinThinkTime, MaxThinkTime)
 
-    .exec(http("TC06_JUI_SelectCase_clickTimelineTab")
-      .get("/api/case/SSCS/Benefit/${P_case}/timeline"))
+    .exec(http("JUI_060_SelectTimelineTab")
+      .get("/api/case/SSCS/Benefit/${New_Case_Id}/timeline"))
     .pause(MinThinkTime, MaxThinkTime)
 }
