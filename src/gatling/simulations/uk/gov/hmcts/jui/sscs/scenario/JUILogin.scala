@@ -31,7 +31,7 @@ object JUILogin {
       .get(JUIBaseUrl + "/api/cases")
       .headers(headers_3)
       .check(regex("""case_id":(.*?),""").findAll.saveAs("P_cases"))
-      .check(regex("""case_id":(.*?),""").count.greaterThanOrEqual(1).saveAs("pickCaseCounts")))
+      .check(regex("""case_id":(.*?),""").count.gte(1).saveAs("pickCaseCounts")))
 
     //.pause(MinThinkTime, MaxThinkTime)
 

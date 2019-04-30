@@ -14,7 +14,7 @@ class JUI_SSCSCaseJourney extends Simulation {
   val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
 
   val httpSSCSProtocol = Environment.HttpSSCSProtocol
-    .baseURL(JUIBaseUrl)
+    .baseUrl(JUIBaseUrl)
     .proxy(Proxy("proxyout.reform.hmcts.net", 8080).httpsPort(8080))
     .maxRedirects(10)
   // .disableAutoReferer
