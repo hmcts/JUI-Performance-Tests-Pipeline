@@ -31,7 +31,7 @@ class JUI_SSCSCaseJourney extends Simulation {
       Browse.landingLoginPage,
       JUILogin.submitLogin,
       //JUICases.setCaseId, // Only required if amending existing cases
-      JUICases.pickCase,
+      JUICases.pickRandomCase,
       JUIDocument.openDocument,
       //JUIDocument.AnnotateDocument, // Not currently working
       JUIQuestion.sendQuestion,
