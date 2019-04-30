@@ -30,8 +30,10 @@ class JUI_SSCSCaseJourney extends Simulation {
       CaseCreationPreReq.AssignToJudge,
       Browse.landingLoginPage,
       JUILogin.submitLogin,
-      JUICases.pickRandomCase,
+      //JUICases.setCaseId, // Only required if amending existing cases
+      JUICases.pickCase,
       JUIDocument.openDocument,
+      //JUIDocument.AnnotateDocument, // Not currently working
       JUIQuestion.sendQuestion,
       JUIDecision.submitDecision,
       Logout.logout

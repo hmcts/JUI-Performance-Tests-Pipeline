@@ -9,7 +9,7 @@ object Browse {
 
  val IdamJUIURL = scala.util.Properties.envOrElse("IDAM_WEB_URL", Environment.IDAM_WEB_URL).toLowerCase()
  val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
- //val feedASSCSJudgeData = csv("JUISSCSUser.csv").circular
+ val feedASSCSJudgeData = csv("JUISSCSUser.csv").circular
  val MinThinkTime = Environment.minThinkTime
  val MaxThinkTime = Environment.maxThinkTime
 
