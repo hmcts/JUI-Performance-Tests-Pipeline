@@ -11,8 +11,6 @@ import scala.concurrent.duration._
 
 class JUI_SSCSCaseJourney extends Simulation {
   
-  System.setProperty("jsse.enableSNIExtension", "false")
-
   val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
 
   val httpSSCSProtocol = Environment.HttpSSCSProtocol
@@ -41,8 +39,6 @@ class JUI_SSCSCaseJourney extends Simulation {
       Logout.logout
     )
   
-  System.setProperty("jsse.enableSNIExtension", "false")
-
   setUp(JUISSCSSCN.inject(atOnceUsers(1))).protocols(httpSSCSProtocol)
 
 }
