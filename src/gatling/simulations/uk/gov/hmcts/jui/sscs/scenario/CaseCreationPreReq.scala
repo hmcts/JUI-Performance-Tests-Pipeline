@@ -1,4 +1,4 @@
-package simulations.uk.gov.hmcts.jui.sscs.scenario
+package uk.gov.hmcts.jui.sscs.scenario
 
 
 //import java.sql.Date
@@ -98,20 +98,23 @@ object CaseCreationPreReq {
         .headers(headers_2),
         http("PR_JUI_020_015_Login")
           .options(BaseURL + "/oauth2?code=${authCode}&redirect_uri=https://ccd-case-management-web-aat.service.core-compute-aat.internal/oauth2redirect")
-          .headers(headers_4),
-        http("PR_JUI_020_020_Login")
+          .headers(headers_4)))
+
+      .exec(http("PR_JUI_020_020_Login")
           .get(BaseURL + "/oauth2?code=${authCode}&redirect_uri=https://ccd-case-management-web-aat.service.core-compute-aat.internal/oauth2redirect")
-          .headers(headers_5)
-        /*.check(headerRegex("Set-Cookie", "accessToken=(.*)").saveAs("event_token"))*/,
-        http("PR_JUI_020_025_Login")
+          .headers(headers_5))
+        /*.check(headerRegex("Set-Cookie", "accessToken=(.*)").saveAs("event_token"))*/
+        .exec(http("PR_JUI_020_025_Login")
           .get(CCD_URL + "/config")
-          .headers(headers_2)))
+          .headers(headers_2))
 
     .exec(http("PR_JUI_020_030_Login")
       .options(BaseURL + "/data/caseworkers/:uid/profile"))
 
+    //.exec(addCookie(Cookie("accessToken", "eyJ0eXAiOiJKV1QiLCJ6aXAiOiJOT05FIiwia2lkIjoiUis0Vk1lYnVEbzdyN0pRVlRCcGFlUHVzS0N3PSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiJqdWl0ZXN0dXNlcjJAZ21haWwuY29tIiwiYXV0aF9sZXZlbCI6MCwiYXVkaXRUcmFja2luZ0lkIjoiMjgyN2Y4NzEtYzFmOC00NGFhLTk0NGEtZjEwZTU1ZjBiNTVmIiwiaXNzIjoiaHR0cHM6Ly9mb3JnZXJvY2stYW0uc2VydmljZS5jb3JlLWNvbXB1dGUtaWRhbS1hYXQuaW50ZXJuYWw6ODQ0My9vcGVuYW0vb2F1dGgyL2htY3RzIiwidG9rZW5OYW1lIjoiYWNjZXNzX3Rva2VuIiwidG9rZW5fdHlwZSI6IkJlYXJlciIsImF1dGhHcmFudElkIjoiZDE3NjAzZTYtN2I0Yy00MjBmLTllMmEtNDhlYjE2M2IzMjM3IiwiYXVkIjoiY2NkX2dhdGV3YXkiLCJuYmYiOjE1NTczMTU4ODksImdyYW50X3R5cGUiOiJhdXRob3JpemF0aW9uX2NvZGUiLCJzY29wZSI6WyJhY3IiLCJvcGVuaWQiLCJwcm9maWxlIiwicm9sZXMiLCJhdXRob3JpdGllcyJdLCJhdXRoX3RpbWUiOjE1NTczMTU4ODkwMDAsInJlYWxtIjoiL2htY3RzIiwiZXhwIjoxNTU3MzQ0Njg5LCJpYXQiOjE1NTczMTU4ODksImV4cGlyZXNfaW4iOjI4ODAwLCJqdGkiOiJjNGZiNmRmYS1mMTQ0LTQxYzgtOGRmMS05YmYwNTNlYWM4MzMifQ.rS2uyr7LVBFZNOekbcil-ebDXpoVuhNS_HvjKCYW-iPNGBoZ6QL8AJ0B1uljlKtWukCBgVykKFSH0rHTILQnGR2G-kCYsL86lu6pc6jY3jfIgfuWnRPOl7h1Alx0DSiL5s9Ip8oy6gdrmpltXzm76FOoU2wedKZENLhBeFF7ROd7ZwdGhNbi5G8-sM00zn4Cbry2_nmHpbjYoL0-SN3G3Px9tCtIXy5GRTIIL5AqNF-nzAAkVqOuugzS3cqQtyx1VtmiKOZXtQTnTcG17s1YLkJhvqBjgqB2KwxITqMO9QuGkjlXcTbQcRG6VTnPpgKuji0kN8BBdD_rH7or3BvyDw")))
+
     .exec(http("PR_JUI_020_035_Login")
-      .get(BaseURL + "/data/caseworkers/:uid/profile")
+      .get("https://ccd-api-gateway-web-aat.service.core-compute-aat.internal/data/caseworkers/:uid/profile")
       .headers(jsoncommonHeader))
 
     .exec(http("PR_JUI_020_040_Login")
@@ -150,11 +153,12 @@ object CaseCreationPreReq {
       .options(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/event-triggers/appealCreated?ignore-warning=false")
       .resources(http("PR_JUI_030_020_CreateCaseLandingPage")
         .get(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/event-triggers/appealCreated?ignore-warning=false")
-        .headers(jsoncommonHeader),
-      http("PR_JUI_030_025_CreateCaseLandingPage")
+        .headers(jsoncommonHeader)))
+
+      .exec(http("PR_JUI_030_025_CreateCaseLandingPage")
         .get(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/event-triggers/appealCreated?ignore-warning=false")
         .check(jsonPath("$.event_token").saveAs("New_Case_event_token"))
-        .headers(jsoncommonHeader)))
+        .headers(jsoncommonHeader))
 
     .pause(MinThinkTime, MaxThinkTime)
 
