@@ -1,11 +1,8 @@
 plugins {
-    id 'org.owasp.dependencycheck' version '3.3.4'
-    id 'scala'
-    id 'com.github.lkishalmi.gatling' version '3.0.2'
+    id 'org.owasp.dependencycheck' version '3.2.1'
 }
 
-//apply plugin: 'java'
-group 'uk.gov.hmcts.reform'
+apply plugin: 'java'
 version = '1.0'
 
 jar {
@@ -20,22 +17,4 @@ dependencyCheck {
     // range of 0-10 fails the build, anything greater and it doesn't fail the build
     failBuildOnCVSS = System.getProperty('dependencyCheck.failBuild') == 'true' ? 0 : 11
     suppressionFile = 'dependency-check-suppressions.xml'
-}
-
-repositories {
-    jcenter()
-}
-
-
-dependencies {
-    compile 'org.scala-lang:scala-library:2.12.8'
-
-    gatlingCompile 'com.warrenstrange:googleauth:1.1.5'
-}
-
-gatling {
-    toolVersion '3.1.1'
-    scalaVersion '2.12.8'
-
-    simulations = [ 'uk.gov.hmcts.jui.sscs.simulations.JUI_SSCSCaseJourney' ]
 }
