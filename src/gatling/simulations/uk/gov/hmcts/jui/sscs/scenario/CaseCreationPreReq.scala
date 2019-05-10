@@ -41,39 +41,20 @@ object CaseCreationPreReq {
     ("caseNumber", number())
   ))
 
-  //println(DateTimeFormatter.ofPattern("YYYYMMdd").format(java.time.LocalDate.now))
-  //println(java.time.LocalDate.now)
-
-    //.exec(_.set("dateNow", java.time.LocalDate.now))
-
-  //println("${dateNow}")
-
   val sdfDate = new SimpleDateFormat("ddMMyy")
   val now = new Date()
   val timeStamp = sdfDate.format(now)
 
-
-  //exec(_.set("dateNow", sdfDate))
-
-  //println("${dateNow}")
-
-
   val homepage = exec(http("PR_JUI_010_005_HomePage")
     .get("/"))
 
+    .pause(MinThinkTime, MaxThinkTime)
+
     .exec(http("PR_JUI_010_001_HomePage")
       .get(IdamCCDURL + "/login?response_type=code&client_id=ccd_gateway&redirect_uri=https%3A%2F%2Fccd-case-management-web-aat.service.core-compute-aat.internal%2Foauth2redirect")
-      //.check(css("input[name='_csrf']", "value").saveAs("csrftoken"))
       .check(CurrentPageUrl.save)
       .check(CsrfCheck.save))
-      /*.check(css(".form-group>input[name='upliftToken']", "value").saveAs("upliftToken"))
-      .check(css(".form-group>input[name='response_type']", "value").saveAs("response_type"))
-      .check(css(".form-group>input[name='redirect_uri']", "value").saveAs("redirect_uri"))
-      .check(css(".form-group>input[name='client_id']", "value").saveAs("client_id"))
-      .check(css(".form-group>input[name='scope']", "value").saveAs("scope"))
-      .check(css(".form-group>input[name='state']", "value").saveAs("state"))
-      .check(css(".form-group>input[name='continue']", "value").saveAs("continue"))*/
-
+  
     .feed(feedASSCSJudgeData)
 
     .pause(MinThinkTime, MaxThinkTime)
