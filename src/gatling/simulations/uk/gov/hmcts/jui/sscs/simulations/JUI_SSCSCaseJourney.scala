@@ -10,11 +10,11 @@ import uk.gov.hmcts.jui.sscs.scenario._
 import scala.concurrent.duration._
 
 class JUI_SSCSCaseJourney extends Simulation {
-  
+
   val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
 
   val httpSSCSProtocol = Environment.HttpSSCSProtocol
-    .baseUrl(JUIBaseUrl)
+    .baseURL(JUIBaseUrl)
     .proxy(Proxy("proxyout.reform.hmcts.net", 8080).httpsPort(8080))
     .maxRedirects(10)
   // .disableAutoReferer
@@ -31,14 +31,14 @@ class JUI_SSCSCaseJourney extends Simulation {
       Browse.landingLoginPage,
       JUILogin.submitLogin,
       //JUICases.setCaseId, // Only required if amending existing cases
-      JUICases.pickRandomCase,
+      JUICases.pickCase,
       JUIDocument.openDocument,
       //JUIDocument.AnnotateDocument, // Not currently working
       JUIQuestion.sendQuestion,
       JUIDecision.submitDecision,
       Logout.logout
     )
-  
+
   setUp(JUISSCSSCN.inject(atOnceUsers(1))).protocols(httpSSCSProtocol)
 
 }
