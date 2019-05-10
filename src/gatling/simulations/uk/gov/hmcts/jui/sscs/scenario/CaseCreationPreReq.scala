@@ -45,12 +45,12 @@ object CaseCreationPreReq {
   val now = new Date()
   val timeStamp = sdfDate.format(now)
 
-  val homepage = exec(http("PR_JUI_010_005_HomePage")
+  val homepage = /*exec(http("PR_JUI_010_005_HomePage")
     .get("/"))
 
     .pause(MinThinkTime, MaxThinkTime)
 
-    .exec(http("PR_JUI_010_001_HomePage")
+    .*/exec(http("PR_JUI_010_001_HomePage")
       .get(IdamCCDURL + "/login?response_type=code&client_id=ccd_gateway&redirect_uri=https%3A%2F%2Fccd-case-management-web-aat.service.core-compute-aat.internal%2Foauth2redirect")
       .check(CurrentPageUrl.save)
       .check(CsrfCheck.save))
