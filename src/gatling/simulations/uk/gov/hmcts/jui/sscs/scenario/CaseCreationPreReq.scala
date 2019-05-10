@@ -1,5 +1,4 @@
-package simulations.uk.gov.hmcts.jui.sscs.scenario
-
+package uk.gov.hmcts.jui.sscs.scenario
 
 //import java.sql.Date
 import java.text.SimpleDateFormat
@@ -95,17 +94,18 @@ object CaseCreationPreReq {
 
       .resources(http("PR_JUI_020_010_Login")
         .get(CCD_URL + "/config")
-        .headers(headers_2),
-        http("PR_JUI_020_015_Login")
-          .options(BaseURL + "/oauth2?code=${authCode}&redirect_uri=https://ccd-case-management-web-aat.service.core-compute-aat.internal/oauth2redirect")
-          .headers(headers_4),
-        http("PR_JUI_020_020_Login")
-          .get(BaseURL + "/oauth2?code=${authCode}&redirect_uri=https://ccd-case-management-web-aat.service.core-compute-aat.internal/oauth2redirect")
-          .headers(headers_5)
-        /*.check(headerRegex("Set-Cookie", "accessToken=(.*)").saveAs("event_token"))*/,
-        http("PR_JUI_020_025_Login")
-          .get(CCD_URL + "/config")
-          .headers(headers_2)))
+        .headers(headers_2)))
+
+    .exec(http("PR_JUI_020_015_Login")
+      .options(BaseURL + "/oauth2?code=${authCode}&redirect_uri=https://ccd-case-management-web-aat.service.core-compute-aat.internal/oauth2redirect")
+      .headers(headers_4))
+    .exec(http("PR_JUI_020_020_Login")
+      .get(BaseURL + "/oauth2?code=${authCode}&redirect_uri=https://ccd-case-management-web-aat.service.core-compute-aat.internal/oauth2redirect")
+      .headers(headers_5))
+
+    .exec(http("PR_JUI_020_025_Login")
+      .get(CCD_URL + "/config")
+      .headers(headers_2))
 
     .exec(http("PR_JUI_020_030_Login")
       .options(BaseURL + "/data/caseworkers/:uid/profile"))
@@ -118,22 +118,27 @@ object CaseCreationPreReq {
       .options(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types?access=read")
       .resources(http("PR_JUI_020_045_Login")
         .get(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types?access=read")
-        .headers(jsoncommonHeader),
-        http("PR_JUI_020_050_Login")
-          .options(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/work-basket-inputs"),
-        http("PR_JUI_020_055_Login")
-          .options(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/cases?view=WORKBASKET&state=TODO&page=1"),
-        http("PR_JUI_020_060_Login")
-          .options(BaseURL + "/data/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/cases/pagination_metadata?state=TODO"),
-        http("PR_JUI_020_065_Login")
-          .get(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/work-basket-inputs")
-          .headers(jsoncommonHeader),
-        http("PR_JUI_020_070_Login")
-          .get(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/cases?view=WORKBASKET&state=TODO&page=1")
-          .headers(jsoncommonHeader),
-        http("PR_JUI_020_075_Login")
-          .get(BaseURL + "/data/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/cases/pagination_metadata?state=TODO")
-          .headers(jsoncommonHeader)))
+        .headers(jsoncommonHeader)))
+
+    .exec(http("PR_JUI_020_050_Login")
+      .options(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/work-basket-inputs"))
+
+    .exec(http("PR_JUI_020_055_Login")
+      .options(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/cases?view=WORKBASKET&state=TODO&page=1"))
+
+    .exec(http("PR_JUI_020_060_Login")
+      .options(BaseURL + "/data/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/cases/pagination_metadata?state=TODO"))
+    .exec(http("PR_JUI_020_065_Login")
+      .get(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/work-basket-inputs")
+      .headers(jsoncommonHeader))
+
+    .exec(http("PR_JUI_020_070_Login")
+      .get(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/cases?view=WORKBASKET&state=TODO&page=1")
+      .headers(jsoncommonHeader))
+
+    .exec(http("PR_JUI_020_075_Login")
+      .get(BaseURL + "/data/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/cases/pagination_metadata?state=TODO")
+      .headers(jsoncommonHeader))
 
     .pause(MinThinkTime, MaxThinkTime)
 
@@ -150,11 +155,12 @@ object CaseCreationPreReq {
       .options(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/event-triggers/appealCreated?ignore-warning=false")
       .resources(http("PR_JUI_030_020_CreateCaseLandingPage")
         .get(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/event-triggers/appealCreated?ignore-warning=false")
-        .headers(jsoncommonHeader),
-      http("PR_JUI_030_025_CreateCaseLandingPage")
+        .headers(jsoncommonHeader)))
+
+    .exec(http("PR_JUI_030_025_CreateCaseLandingPage")
         .get(BaseURL + "/aggregated/caseworkers/:uid/jurisdictions/SSCS/case-types/Benefit/event-triggers/appealCreated?ignore-warning=false")
         .check(jsonPath("$.event_token").saveAs("New_Case_event_token"))
-        .headers(jsoncommonHeader)))
+        .headers(jsoncommonHeader))
 
     .pause(MinThinkTime, MaxThinkTime)
 
