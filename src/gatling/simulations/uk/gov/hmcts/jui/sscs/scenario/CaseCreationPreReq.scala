@@ -60,7 +60,7 @@ object CaseCreationPreReq {
 
 
   val homepage = exec(http("PR_JUI_010_005_HomePage")
-      .get("/")
+      .get(CCD_URL + "/")
         .headers(CommonHeader))
 
     //.pause(MinThinkTime, MaxThinkTime)
