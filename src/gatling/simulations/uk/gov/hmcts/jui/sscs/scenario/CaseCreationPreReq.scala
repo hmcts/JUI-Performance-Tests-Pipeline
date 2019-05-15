@@ -41,20 +41,35 @@ object CaseCreationPreReq {
     ("caseNumber", number())
   ))
 
+  //println(DateTimeFormatter.ofPattern("YYYYMMdd").format(java.time.LocalDate.now))
+  //println(java.time.LocalDate.now)
+
+    //.exec(_.set("dateNow", java.time.LocalDate.now))
+
+  //println("${dateNow}")
+
   val sdfDate = new SimpleDateFormat("ddMMyy")
   val now = new Date()
   val timeStamp = sdfDate.format(now)
 
-  val homepage = /*exec(http("PR_JUI_010_005_HomePage")
-    .get("/"))
+
+  //exec(_.set("dateNow", sdfDate))
+
+  //println("${dateNow}")
+
+
+  val homepage = exec(http("PR_JUI_010_005_HomePage")
+      .get("/")
+        .headers(CommonHeader))
 
     .pause(MinThinkTime, MaxThinkTime)
 
-    .*/exec(http("PR_JUI_010_001_HomePage")
+    .exec(http("PR_JUI_010_010_HomePage")
       .get(IdamCCDURL + "/login?response_type=code&client_id=ccd_gateway&redirect_uri=https%3A%2F%2Fccd-case-management-web-aat.service.core-compute-aat.internal%2Foauth2redirect")
-      .check(CurrentPageUrl.save)
-      .check(CsrfCheck.save))
-  
+        .headers(CommonHeader)
+        .check(CurrentPageUrl.save)
+        .check(CsrfCheck.save))
+
     .feed(feedASSCSJudgeData)
 
     .pause(MinThinkTime, MaxThinkTime)
