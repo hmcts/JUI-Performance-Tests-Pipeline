@@ -9,7 +9,7 @@
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<scala.version>2.12.3</scala.version>
+		<scala.version>2.13.3</scala.version>
 		<encoding>UTF-8</encoding>
 
 		<gatling.version>3.1.1</gatling.version>
@@ -64,7 +64,7 @@
 	</dependencies>
 
 	<build>
-		<testSourceDirectory>src/gatling/</testSourceDirectory>
+		<testSourceDirectory>src/gatling</testSourceDirectory>
 		<pluginManagement>
 			<plugins>
 				<plugin>
