@@ -6,6 +6,7 @@ import io.gatling.core.session._
 import uk.gov.hmcts.jui.sscs.scenario.CaseCreationPreReq
 import uk.gov.hmcts.jui.sscs.scenario.utils._
 import uk.gov.hmcts.jui.sscs.scenario._
+import io.gatling.core.scenario.Simulation
 
 import scala.concurrent.duration._
 

@@ -15,7 +15,7 @@ import uk.gov.hmcts.jui.sscs.simulations.checks.{CsrfCheck, CurrentPageUrl}
 
 object CaseCreationPreReq {
 
-  val IdamCCDURL = scala.util.Properties.envOrElse("IDAM_WEB_URL", Environment.IDAM_WEB_URL).toLowerCase()
+  val idamURL = scala.util.Properties.envOrElse("IDAM_WEB_URL", Environment.IDAM_WEB_URL).toLowerCase()
   val CCDBaseUrl = scala.util.Properties.envOrElse("CCD_URL", Environment.CCD_WEB_URL).toLowerCase()
   val CCD_URL = scala.util.Properties.envOrElse("CCD_Web_URL", Environment.CCD_WEB_URL).toLowerCase()
   val CCDGatewayUrl = scala.util.Properties.envOrElse("CCD_Gateway_URL", Environment.CCD_GATEWAY_URL).toLowerCase()
@@ -30,6 +30,7 @@ object CaseCreationPreReq {
   val headers_5 = Environment.headers_5
   val headers_6 = Environment.headers_6
   val headers_11 = Environment.headers_11
+  val headers_12 = Environment.headers_12
   val idam_header = Environment.idam_header
   val CommonHeader = Environment.commonHeader
   val jsoncommonHeader = Environment.jsoncommonHeader
@@ -59,20 +60,16 @@ object CaseCreationPreReq {
 
 
   val homepage = exec(http("PR_JUI_010_005_HomePage")
-    .get("/"))
+      .get(CCD_URL + "/")
+        .headers(CommonHeader))
 
-    .exec(http("PR_JUI_010_001_HomePage")
-      .get(IdamCCDURL + "/login?response_type=code&client_id=ccd_gateway&redirect_uri=https%3A%2F%2Fccd-case-management-web-aat.service.core-compute-aat.internal%2Foauth2redirect")
-      //.check(css("input[name='_csrf']", "value").saveAs("csrftoken"))
-      .check(CurrentPageUrl.save)
-      .check(CsrfCheck.save))
-      /*.check(css(".form-group>input[name='upliftToken']", "value").saveAs("upliftToken"))
-      .check(css(".form-group>input[name='response_type']", "value").saveAs("response_type"))
-      .check(css(".form-group>input[name='redirect_uri']", "value").saveAs("redirect_uri"))
-      .check(css(".form-group>input[name='client_id']", "value").saveAs("client_id"))
-      .check(css(".form-group>input[name='scope']", "value").saveAs("scope"))
-      .check(css(".form-group>input[name='state']", "value").saveAs("state"))
-      .check(css(".form-group>input[name='continue']", "value").saveAs("continue"))*/
+    //.pause(MinThinkTime, MaxThinkTime)
+
+    .exec(http("PR_JUI_010_010_HomePage")
+      .get(idamURL + "/login?response_type=code&client_id=ccd_gateway&redirect_uri=https%3A%2F%2Fccd-case-management-web-aat.service.core-compute-aat.internal%2Foauth2redirect")
+        .headers(headers_12)
+        .check(CurrentPageUrl.save)
+        .check(CsrfCheck.save))
 
     .feed(feedASSCSJudgeData)
 
@@ -80,7 +77,7 @@ object CaseCreationPreReq {
 
   val login = exec(http("PR_JUI_020_005_Login")
       //.post(IdamCCDURL + "/login?response_type=code&client_id=ccd_gateway&redirect_uri=" + CCDBaseUrl + "/oauth2redirect")
-      .post(IdamCCDURL + "/login?response_type=code&client_id=ccd_gateway&redirect_uri=https%3A%2F%2Fccd-case-management-web-aat.service.core-compute-aat.internal%2Foauth2redirect")
+      .post(idamURL + "/login?response_type=code&client_id=ccd_gateway&redirect_uri=https%3A%2F%2Fccd-case-management-web-aat.service.core-compute-aat.internal%2Foauth2redirect")
       .disableFollowRedirect
       .headers(idam_header)
       .formParam("username", "juitestuser2@gmail.com")

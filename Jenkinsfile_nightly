@@ -20,7 +20,7 @@ def product = "jui"
 def component = "judge"
 
 withNightlyPipeline("java", product, component) {
-    env.TEST_URL = 'https://jui-webapp-aat.service.core-compute-aat.internal/'
+    env.TEST_URL = 'https://jui-webapp-aat.service.core-compute-aat.internal'
     env.BaseURL = 'https://ccd-api-gateway-web-aat.service.core-compute-aat.internal'
     env.IDAM_URL = 'https://idam-web-public.aat.platform.hmcts.net'
 

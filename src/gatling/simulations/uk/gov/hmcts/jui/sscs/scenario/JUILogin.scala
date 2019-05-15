@@ -1,4 +1,3 @@
-
 package uk.gov.hmcts.jui.sscs.scenario
 
 import io.gatling.core.Predef._

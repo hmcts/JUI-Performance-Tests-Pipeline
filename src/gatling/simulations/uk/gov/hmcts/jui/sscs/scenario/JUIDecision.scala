@@ -103,7 +103,6 @@ object JUIDecision {
         http("TX034_JUI_SelectCase_MakeDecision_GET_check_bold-tabular-b89238d840-v1.woff2")
           .get("/assets/fonts/bold-tabular-b89238d840-v1.woff2")*/))
     .pause(MinThinkTime, MaxThinkTime)
-
     .exec(http("JUI_240_010_MakeDecisionCheck")
       .post("/api/decisions/state/SSCS/Benefit/${New_Case_Id}/check")
       .headers(CommonSSCSHeader)
@@ -111,7 +110,6 @@ object JUIDecision {
       .resources(http("JUI_250_005_CheckTribunal")
         .get("/api/decisions/state/SSCS/Benefit/${New_Case_Id}/check-tribunal")))
     .pause(MinThinkTime, MaxThinkTime)
-
     .exec(http("JUI_250_010_CheckTribunal")
       .post("/api/decisions/state/SSCS/Benefit/${New_Case_Id}/check-tribunal")
       .headers(CommonSSCSHeader)
