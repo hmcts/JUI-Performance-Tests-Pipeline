@@ -62,8 +62,6 @@ object CaseCreationPreReq {
       .get("/")
         .headers(CommonHeader))
 
-    .pause(MinThinkTime, MaxThinkTime)
-
     .exec(http("PR_JUI_010_010_HomePage")
       .get(IdamCCDURL + "/login?response_type=code&client_id=ccd_gateway&redirect_uri=https%3A%2F%2Fccd-case-management-web-aat.service.core-compute-aat.internal%2Foauth2redirect")
         .headers(CommonHeader)
