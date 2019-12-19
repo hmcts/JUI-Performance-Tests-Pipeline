@@ -1,11 +1,13 @@
 package uk.gov.hmcts.jui.sscs.simulations
 
 import io.gatling.core.Predef._
-import io.gatling.http.Predef._
 import io.gatling.core.scenario.Simulation
 import scala.concurrent.duration._
+import io.gatling.http.Predef._
 import uk.gov.hmcts.jui.sscs.scenario._
 import uk.gov.hmcts.jui.sscs.scenario.utils._
+
+import scala.concurrent.duration._
 
 class JUI_SSCSCaseJourney extends Simulation {
 
@@ -38,7 +40,7 @@ class JUI_SSCSCaseJourney extends Simulation {
       Logout.logout
     )
 
-  setUp(JUISSCSSCN.inject(rampUsers(10) during (1 minute))
+  setUp(JUISSCSSCN.inject(rampUsers(1) during (1 minute))
   )
     .protocols(httpSSCSProtocol)
 
