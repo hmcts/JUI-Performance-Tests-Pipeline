@@ -93,6 +93,13 @@ object Environment {
     "experimental" -> "true")
 
   val headers_1 = Map("Origin" -> JUI_URL)
+
+  val headers_12 = Map(
+    "Accept" -> "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+    "Accept-Encoding" -> "gzip, deflate, br",
+    "Accept-Language" -> "en-US,en;q=0.9",
+    "Upgrade-Insecure-Requests" -> "1")
+
   //val headers_3 = Map("Accept" -> "application/json, text/plain, */*")
   //val headers_5 = Map("Accept" -> "*/*")
 
