@@ -2,16 +2,14 @@ package uk.gov.hmcts.jui.sscs.scenario
 
 //import java.sql.Date
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
-import java.util.Calendar
 import java.util.Date
-import java.text.SimpleDateFormat
+
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
+import uk.gov.hmcts.jui.sscs.simulations.checks.{CsrfCheck, CurrentPageUrl}
+import uk.gov.hmcts.jui.sscs.scenario.utils._
 
 import scala.util.Random
-import uk.gov.hmcts.jui.sscs.scenario.utils._
-import uk.gov.hmcts.jui.sscs.simulations.checks.{CsrfCheck, CurrentPageUrl}
 
 object CaseCreationPreReq {
 
@@ -59,23 +57,27 @@ object CaseCreationPreReq {
   //println("${dateNow}")
 
 
-  val homepage = exec(http("PR_JUI_010_005_HomePage")
-      .get(CCD_URL + "/")
-        .headers(CommonHeader))
+  val Homepage = exec(http("PR_JUI_010_005_HomePage")
+    .get("/"))
 
-    //.pause(MinThinkTime, MaxThinkTime)
-
-    .exec(http("PR_JUI_010_010_HomePage")
+    .exec(http("PR_JUI_010_001_HomePage")
       .get(idamURL + "/login?response_type=code&client_id=ccd_gateway&redirect_uri=https%3A%2F%2Fccd-case-management-web-aat.service.core-compute-aat.internal%2Foauth2redirect")
-        .headers(headers_12)
-        .check(CurrentPageUrl.save)
-        .check(CsrfCheck.save))
+      //.check(css("input[name='_csrf']", "value").saveAs("csrftoken"))
+      .check(CurrentPageUrl.save)
+      .check(CsrfCheck.save))
+      /*.check(css(".form-group>input[name='upliftToken']", "value").saveAs("upliftToken"))
+      .check(css(".form-group>input[name='response_type']", "value").saveAs("response_type"))
+      .check(css(".form-group>input[name='redirect_uri']", "value").saveAs("redirect_uri"))
+      .check(css(".form-group>input[name='client_id']", "value").saveAs("client_id"))
+      .check(css(".form-group>input[name='scope']", "value").saveAs("scope"))
+      .check(css(".form-group>input[name='state']", "value").saveAs("state"))
+      .check(css(".form-group>input[name='continue']", "value").saveAs("continue"))*/
 
     .feed(feedASSCSJudgeData)
 
     .pause(MinThinkTime, MaxThinkTime)
 
-  val login = exec(http("PR_JUI_020_005_Login")
+  val Login = exec(http("PR_JUI_020_005_Login")
       //.post(IdamCCDURL + "/login?response_type=code&client_id=ccd_gateway&redirect_uri=" + CCDBaseUrl + "/oauth2redirect")
       .post(idamURL + "/login?response_type=code&client_id=ccd_gateway&redirect_uri=https%3A%2F%2Fccd-case-management-web-aat.service.core-compute-aat.internal%2Foauth2redirect")
       .disableFollowRedirect

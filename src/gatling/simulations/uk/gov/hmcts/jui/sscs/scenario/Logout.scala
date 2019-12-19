@@ -8,7 +8,7 @@ object Logout {
   val IdamJUIURL = scala.util.Properties.envOrElse("IDAM_WEB_URL", Environment.IDAM_WEB_URL).toLowerCase()
   val MinThinkTime = Environment.minThinkTime
   val MaxThinkTime = Environment.maxThinkTime
-  val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
+  val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.JUI_URL).toLowerCase()
 
   val logout = exec(http("JUI_260_Logout")
     .get(IdamJUIURL + "/login?response_type=code&client_id=juiwebapp&redirect_uri=" + JUIBaseUrl + "/oauth2/callback"))
@@ -30,4 +30,5 @@ object Logout {
       http("TX50_JUI_Logout_gov.uk_logotype_crown.png")
         .get(IdamJUIURL + "/public/stylesheets/images/gov.uk_logotype_crown.png?0.23.0")))
         */
+
 }
