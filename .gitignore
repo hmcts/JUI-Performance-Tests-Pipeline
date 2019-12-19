@@ -4,7 +4,7 @@ results/*
 target/**
 *.iml
 *.project
-/.gradle/
+.gradle/
 build/**
 *.log
 out/**

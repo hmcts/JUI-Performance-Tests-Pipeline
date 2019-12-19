@@ -33,4 +33,5 @@ object Browse {
    .feed(feedASSCSJudgeData)
 
    .pause(MinThinkTime, MaxThinkTime)
+
 }

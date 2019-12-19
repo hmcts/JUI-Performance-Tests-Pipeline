@@ -15,7 +15,7 @@ version = '1.0'
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'CCD UI Performance Tests',
+        attributes 'Implementation-Title': 'JUI Performance Tests',
                 'Implementation-Version': version
     }
 }
@@ -45,6 +45,29 @@ gatling {
     scalaVersion '2.12.8'
     simulations = [ 'uk.gov.hmcts.jui.sscs.simulations.JUI_SSCSCaseJourney'
     ]
+}
+
+
+repositories {
+    jcenter()
+}
+
+
+dependencies {
+    compile 'org.scala-lang:scala-library:2.12.8'
+
+    gatlingCompile 'com.warrenstrange:googleauth:1.1.5'
+    compile group: 'io.gatling', name: 'gatling-app', version: '3.1.1'
+
+    compile group: 'io.gatling', name: 'gatling-recorder', version: '3.1.1'
+    compile group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version: '3.1.1'
+
+}
+
+gatling {
+    toolVersion '3.1.1'
+    scalaVersion '2.12.8'
+    simulations = [ 'uk.gov.hmcts.jui.sscs.simulations.JUI_SSCSCaseJourney' ]
 }
 
 test {

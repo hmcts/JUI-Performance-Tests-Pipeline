@@ -30,4 +30,5 @@ object Logout {
       http("TX50_JUI_Logout_gov.uk_logotype_crown.png")
         .get(IdamJUIURL + "/public/stylesheets/images/gov.uk_logotype_crown.png?0.23.0")))
         */
+
 }

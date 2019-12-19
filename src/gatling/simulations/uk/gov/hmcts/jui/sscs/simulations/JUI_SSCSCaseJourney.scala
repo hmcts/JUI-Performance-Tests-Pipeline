@@ -3,6 +3,8 @@ package uk.gov.hmcts.jui.sscs.simulations
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.core.scenario.Simulation
+import io.gatling.core.session._
+import uk.gov.hmcts.jui.sscs.scenario.CaseCreationPreReq
 import scala.concurrent.duration._
 import uk.gov.hmcts.jui.sscs.scenario._
 import uk.gov.hmcts.jui.sscs.scenario.utils._
@@ -31,6 +33,7 @@ class JUI_SSCSCaseJourney extends Simulation {
       JUILogin.submitLogin,
       //JUICases.setCaseId, // Only required if amending existing cases
       /*JUICases.pickRandomCase,
+      JUICases.pickRandomCase,
       JUIDocument.openDocument,
       //JUIDocument.AnnotateDocument, // Not currently working
       JUIQuestion.sendQuestion,
