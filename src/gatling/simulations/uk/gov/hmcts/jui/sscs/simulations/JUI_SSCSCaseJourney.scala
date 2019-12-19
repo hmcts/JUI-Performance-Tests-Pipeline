@@ -2,9 +2,6 @@ package uk.gov.hmcts.jui.sscs.simulations
 
 import io.gatling.core.Predef._
 import io.gatling.core.scenario.Simulation
-import io.gatling.core.session._
-import uk.gov.hmcts.jui.sscs.scenario.CaseCreationPreReq
-import scala.concurrent.duration._
 import io.gatling.http.Predef._
 import uk.gov.hmcts.jui.sscs.scenario._
 import uk.gov.hmcts.jui.sscs.scenario.utils._
