@@ -2,43 +2,44 @@ package uk.gov.hmcts.jui.sscs.simulations
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import io.gatling.core.session._
-import simulations.uk.gov.hmcts.jui.sscs.scenario.CaseCreationPreReq
-import uk.gov.hmcts.jui.sscs.scenario.utils._
-import uk.gov.hmcts.jui.sscs.scenario._
-
+import io.gatling.core.scenario.Simulation
 import scala.concurrent.duration._
+import uk.gov.hmcts.jui.sscs.scenario._
+import uk.gov.hmcts.jui.sscs.scenario.utils._
 
 class JUI_SSCSCaseJourney extends Simulation {
 
-  val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.URL_TO_TEST).toLowerCase()
+  val JUIBaseUrl = scala.util.Properties.envOrElse("URL_TO_TEST", Environment.JUI_URL).toLowerCase()
 
   val httpSSCSProtocol = Environment.HttpSSCSProtocol
-    .baseURL(JUIBaseUrl)
+    .baseUrl(JUIBaseUrl)
     .proxy(Proxy("proxyout.reform.hmcts.net", 8080).httpsPort(8080))
     .maxRedirects(10)
+    .doNotTrackHeader("1")
   // .disableAutoReferer
 
   val JUISSCSSCN = scenario("SCN_JUI_SSCSJourney")
     .exec(
       //Logout.logout,
-      CaseCreationPreReq.randNum,
-      CaseCreationPreReq.homepage,
-      CaseCreationPreReq.login,
+      /*CaseCreationPreReq.randNum,
+      CaseCreationPreReq.Homepage,
+      CaseCreationPreReq.Login,
       CaseCreationPreReq.CaseCreate,
       CaseCreationPreReq.DocumentUpload,
-      CaseCreationPreReq.AssignToJudge,
+      CaseCreationPreReq.AssignToJudge,*/
       Browse.landingLoginPage,
       JUILogin.submitLogin,
       //JUICases.setCaseId, // Only required if amending existing cases
-      JUICases.pickCase,
+      /*JUICases.pickRandomCase,
       JUIDocument.openDocument,
       //JUIDocument.AnnotateDocument, // Not currently working
       JUIQuestion.sendQuestion,
-      JUIDecision.submitDecision,
+      JUIDecision.submitDecision,*/
       Logout.logout
     )
 
-  setUp(JUISSCSSCN.inject(atOnceUsers(1))).protocols(httpSSCSProtocol)
+  setUp(JUISSCSSCN.inject(rampUsers(10) during (1 minute))
+  )
+    .protocols(httpSSCSProtocol)
 
 }

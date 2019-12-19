@@ -1,18 +1,15 @@
-package simulations.uk.gov.hmcts.jui.sscs.scenario
-
+package uk.gov.hmcts.jui.sscs.scenario
 
 //import java.sql.Date
 import java.text.SimpleDateFormat
-import java.time.format.DateTimeFormatter
-import java.util.Calendar
 import java.util.Date
-import java.text.SimpleDateFormat
+
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
+import uk.gov.hmcts.jui.sscs.simulations.checks.{CsrfCheck, CurrentPageUrl}
+import uk.gov.hmcts.jui.sscs.scenario.utils._
 
 import scala.util.Random
-import uk.gov.hmcts.jui.sscs.scenario.utils._
-import uk.gov.hmcts.jui.sscs.simulations.checks.{CsrfCheck, CurrentPageUrl}
 
 object CaseCreationPreReq {
 
@@ -59,7 +56,7 @@ object CaseCreationPreReq {
   //println("${dateNow}")
 
 
-  val homepage = exec(http("PR_JUI_010_005_HomePage")
+  val Homepage = exec(http("PR_JUI_010_005_HomePage")
     .get("/"))
 
     .exec(http("PR_JUI_010_001_HomePage")
@@ -79,7 +76,7 @@ object CaseCreationPreReq {
 
     .pause(MinThinkTime, MaxThinkTime)
 
-  val login = exec(http("PR_JUI_020_005_Login")
+  val Login = exec(http("PR_JUI_020_005_Login")
       //.post(IdamCCDURL + "/login?response_type=code&client_id=ccd_gateway&redirect_uri=" + CCDBaseUrl + "/oauth2redirect")
       .post(IdamCCDURL + "/login?response_type=code&client_id=ccd_gateway&redirect_uri=https%3A%2F%2Fccd-case-management-web-aat.service.core-compute-aat.internal%2Foauth2redirect")
       .disableFollowRedirect
