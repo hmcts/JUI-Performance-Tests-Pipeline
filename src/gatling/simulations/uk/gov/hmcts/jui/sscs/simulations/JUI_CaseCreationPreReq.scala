@@ -2,10 +2,8 @@ package uk.gov.hmcts.jui.sscs.simulations
 
 import io.gatling.core.Predef._
 import io.gatling.http.Predef._
-import io.gatling.core.session._
-import uk.gov.hmcts.jui.sscs.scenario.utils._
 import uk.gov.hmcts.jui.sscs.scenario._
-import scala.concurrent.duration._
+import uk.gov.hmcts.jui.sscs.scenario.utils._
 
 class JUI_CaseCreationPreReq extends Simulation {
 
@@ -19,7 +17,7 @@ class JUI_CaseCreationPreReq extends Simulation {
   val CCDSSCSSCN = scenario("SCN_CCD_CaseCreate")
     .exec(
       CaseCreationPreReq.Homepage,
-      CaseCreationgPreReq.Login
+      CaseCreationPreReq.Login
     )
 
   setUp(CCDSSCSSCN.inject(atOnceUsers(1))).protocols(httpSSCSProtocol)
